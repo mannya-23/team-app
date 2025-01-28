@@ -27,11 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-STATICFILES_DIRS = [
-    "/Users/mannyasinha/teamapp/myapp/static/css",
-    
-]
-
 
 # Application definition
 
