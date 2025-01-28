@@ -1,32 +1,153 @@
-<form method="POST">
-    {% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Team Member</title>
+    <style>
+        /* Body styling */
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif, 'Times New Roman', Times, serif, sans-serif;
+            background-color: #f0f0f0;  
+            color: #333;  
+            display: flex;
+            justify-content: center; 
+            align-items: center;  
+            height: 100vh;  
+            margin: 0;  
+            flex-direction: column; 
+            background-color: #adcee9;
+        }
 
-    <h1>Edit team member</h1>
-    <h4>Edit email, phone number, and role.</h4>
-    <br>
-    <label>First Name:</label>
-    <input type="text" name="first_name" value="{{ team_member.first_name }}" required><br>
-    <label>Last Name:</label>
-    <input type="text" name="last_name" value="{{ team_member.last_name }}" required><br>
-    <label>Email:</label>
-    <input type="email" name="email" value="{{ team_member.email }}" required><br>
+        /* Header styling */
+        h1 {
+            font-size: 2.0em;
+            color: #071c32;  
+            margin-bottom: 0em;
+            margin-top: 5px;
+            text-align: center; 
+        }
 
-    <label>Phone Number:</label>
-    <input type="tel" name="phone_number" value="{{ team_member.phone_number }}" required><br>
+        h4 {
+            font-size: 1.0em;
+            color: #3c5ca0; 
+            margin-bottom: 0em; 
+            text-align: center;
+        }
 
-    <label>Role:</label>
-    <select name="role" required>
-        <option value="admin" {% if team_member.role == 'admin' %}selected{% endif %}>Admin - Can delete team members</option>
-        <option value="regular" {% if team_member.role == 'regular' %}selected{% endif %}>Regular - Cannot delete team members</option>
-    </select><br>
-    <button type="submit">Update Team Member</button>
-</form>
-<!-- Displays the delete button only if member role is regular, not for admin -->
-{% if team_member.role == 'regular' %}
-    <form method="POST" action="{% url 'delete_team_member' team_member.id %}">
+        /* Form styling */
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;  
+            margin-top: 20px;  
+            text-align: center;  
+        }
+
+        label {
+            font-weight: normal;  
+            margin-top: 10px;
+            display: block;
+            text-align: left; 
+            width: 100%;
+        }
+
+        input, select {
+            width: 90%;  
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: block;  
+            margin-left: auto;  
+            margin-right: auto;  
+        }
+
+        button {
+            font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
+            width: 100%;
+            padding: 5px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1em;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;  /* Darker blue on hover */
+        }
+
+        .delete-button {
+            font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
+            width: 100%;
+            padding: 5px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1em;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;  
+        }
+
+        .button-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <form method="POST">
         {% csrf_token %}
-        <button type="submit" style="color: red;">Delete Team Member</button>
+
+        <h1>Edit Team Member</h1>
+        <h4>Edit email, phone number, and role.</h4>
+
+        
+        <label>First Name:</label>
+        <input type="text" name="first_name" value="{{ team_member.first_name }}" required><br>
+        
+        <label>Last Name:</label>
+        <input type="text" name="last_name" value="{{ team_member.last_name }}" required><br>
+        
+        <label>Email:</label>
+        <input type="email" name="email" value="{{ team_member.email }}" required><br>
+
+        <label>Phone Number:</label>
+        <input type="tel" name="phone_number" value="{{ team_member.phone_number }}" required><br>
+
+        <label>Role:</label>
+        <select name="role" required>
+            <option value="admin" {% if team_member.role == 'admin' %}selected{% endif %}>Admin - Can delete team members</option>
+            <option value="regular" {% if team_member.role == 'regular' %}selected{% endif %}>Regular - Cannot delete team members</option>
+        </select><br>
+        
+        <button type="submit">Update Team Member</button>
+
     </form>
+
+    <!-- Displays the delete button only if member role is regular, not for admin -->
+{% if team_member.role == 'regular' %}
+<form method="POST" action="{% url 'delete_team_member' team_member.id %}">
+    {% csrf_token %}
+    <button type="submit" class="delete-button">Delete Team Member</button>
+</form>
 {% endif %}
+</body>
+</html>
 </body>
 </html>
