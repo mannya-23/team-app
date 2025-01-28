@@ -37,11 +37,17 @@
             border: none;
             border-radius: 5px;
             text-decoration: none;
+            text-align: center;  
+            display: inline-block;
+            line-height: 1.8;
+            height: 25px;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
     <h1>Team Members</h1>
+    <!-- Display the number of team members -->
     <h3> You have {{ team_members|length }} team members. </h3>
     <a href="{% url 'add_team_member' %}" class="add-button"> Add Team Member</a>
     <ul class="team-list">
@@ -49,6 +55,7 @@
         <li>
             <span>
                 <strong>{{ member.first_name }} {{ member.last_name }}</strong>
+                <!-- Labels admin  -->
                 {% if member.role == 'admin' %}
                     (Admin)
                 {% endif %}

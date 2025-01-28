@@ -3,7 +3,7 @@ from django.core.validators import RegexValidator
 
 
 
-# Create your models here.
+# Represents a team member in app
 class TeamMember(models.Model):
 
     # Define role choices
@@ -12,6 +12,7 @@ class TeamMember(models.Model):
         ('regular', 'Regular'),
     ]
 
+    # Define fields for first name, last name, email, phone number, and role for each team member
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
@@ -20,6 +21,7 @@ class TeamMember(models.Model):
     role = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    # Returns string with full name
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
     

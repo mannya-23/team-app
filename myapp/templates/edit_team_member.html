@@ -21,7 +21,7 @@
     </select><br>
     <button type="submit">Update Team Member</button>
 </form>
-
+<!-- Displays the delete button only if member role is regular, not for admin -->
 {% if team_member.role == 'regular' %}
     <form method="POST" action="{% url 'delete_team_member' team_member.id %}">
         {% csrf_token %}
