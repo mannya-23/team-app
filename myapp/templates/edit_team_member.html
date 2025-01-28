@@ -1,0 +1,32 @@
+<form method="POST">
+    {% csrf_token %}
+
+    <h1>Edit team member</h1>
+    <h4>Edit email, phone number, and role.</h4>
+    <br>
+    <label>First Name:</label>
+    <input type="text" name="first_name" value="{{ team_member.first_name }}" required><br>
+    <label>Last Name:</label>
+    <input type="text" name="last_name" value="{{ team_member.last_name }}" required><br>
+    <label>Email:</label>
+    <input type="email" name="email" value="{{ team_member.email }}" required><br>
+
+    <label>Phone Number:</label>
+    <input type="tel" name="phone_number" value="{{ team_member.phone_number }}" required><br>
+
+    <label>Role:</label>
+    <select name="role" required>
+        <option value="admin" {% if team_member.role == 'admin' %}selected{% endif %}>Admin - Can delete team members</option>
+        <option value="regular" {% if team_member.role == 'regular' %}selected{% endif %}>Regular - Cannot delete team members</option>
+    </select><br>
+    <button type="submit">Update Team Member</button>
+</form>
+
+{% if team_member.role == 'regular' %}
+    <form method="POST" action="{% url 'delete_team_member' team_member.id %}">
+        {% csrf_token %}
+        <button type="submit" style="color: red;">Delete Team Member</button>
+    </form>
+{% endif %}
+</body>
+</html>

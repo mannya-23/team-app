@@ -1,0 +1,21 @@
+<form method="POST">
+    {% csrf_token %}
+    <h1>Add a team member</h1>
+    <h3>Set email, phone number, and role.</h3>
+    
+    <label>First Name:</label>
+    <input type="text" name="first_name" required><br>
+    <label>Last Name:</label>
+    <input type="text" name="last_name" required><br>
+    <label>Email:</label>
+    <input type="email" name="email" required><br>
+    <label>Phone Number:</label>
+    <input type="tel" name="phone_number" required><br>
+    <label>Role:</label>
+    <select name="role" required>
+        <option value="admin">Admin - Can delete team members</option>
+        <option value="regular" selected>Regular - Cannot delete team members</option>
+    </select><br>
+
+    <button type="submit">Save</button>
+</form>

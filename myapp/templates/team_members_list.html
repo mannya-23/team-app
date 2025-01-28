@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Members</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .add-button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .team-list {
+            list-style: none;
+            padding: 0;
+        }
+        .team-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .edit-button {
+            padding: 5px 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Team Members</h1>
+    <h3> You have {{ team_members|length }} team members. </h3>
+    <a href="{% url 'add_team_member' %}" class="add-button"> Add Team Member</a>
+    <ul class="team-list">
+        {% for member in team_members %}
+        <li>
+            <span>
+                <strong>{{ member.first_name }} {{ member.last_name }}</strong>
+                {% if member.role == 'admin' %}
+                    (Admin)
+                {% endif %}
+                <br>
+                Email: {{ member.email }}<br>
+                Phone: {{ member.phone_number }}<br>
+            </span>
+            <a href="{% url 'edit_team_member' member.id %}" class="edit-button">Edit</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
