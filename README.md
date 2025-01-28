@@ -38,5 +38,7 @@ Step 4: Install the requirements needed to run this project.<br />
 Step 5: Run the Django server by running this command.<br />
 ```python3 manage.py runserver```
 
+Step 6: Navigate to http://127.0.0.1:8000/ to access the app.
+
 
 
