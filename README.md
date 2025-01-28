@@ -4,7 +4,7 @@ This project is a simple team-member management system with three pages built wi
 
 ## ADD PHOTOS HERE ONCE FINALIZED
 
-# Prerequisites:
+# Prerequisites
 Ensure Python is installed on your device - https://www.python.org/downloads/.
 
 # Preliminary Steps
@@ -22,7 +22,7 @@ Step 2: Activate the virtual environment and verify it
 Unix/Linux/macOS users run the following command: ```source env/bin/activate```.
 Windows users run the following command: ```.\env\Scripts\activate```.
 
-Step 3: Navigate back to the directory where the repo was cloned.  ```cd team-app```
+Step 3: Navigate back to the directory where the repo was cloned ```cd team-app```.
 
 Step 4: Install the requirements needed to run this project through ```pip install -r requirements.txt```.
 
