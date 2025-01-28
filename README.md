@@ -16,7 +16,8 @@ Ensure Python is installed on your device - https://www.python.org/downloads/.
 Step 1: Create a virtual environment.
 
 Unix/Linux/macOS users run the following command.<br />
-```python3 -m venv team-env```
+```python3 -m venv team-env``` <br />
+
 Windows users run the following command.<br />
 ```py -m venv team-env```
 
