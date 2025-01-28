@@ -9,7 +9,7 @@ Ensure Python is installed on your device - https://www.python.org/downloads/.
 
 # Preliminary Steps
 1. Navigate to Terminal.
-2. Clone the repo from GitHub using.
+2. Clone the repo from GitHub using. \n
 ```git clone https://github.com/mannya-23/team-app.git```
 
 # Running the Django Project
