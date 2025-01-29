@@ -1,7 +1,7 @@
 # Team Member Management Application
 
 This project is a simple team-member management system with three pages (Team Member List, Add Team Member, Edit Team Member) built with Django and the Django Rest
-Framework library. It enables users to view, add, edit, and delete team members. It also includes role-based functionality where admins can delete team members, while regular members do not have that option.
+Framework library. It enables users to view, add, edit, and delete team members. It also includes role-based functionality where admins can delete team members, while regular members do not have that option. This project took around 6 hours to complete.
 
 # Prerequisites
 Ensure Python is installed on your device - https://www.python.org/downloads/.
