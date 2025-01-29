@@ -1,6 +1,6 @@
 # Team Member Management Application
 
-This project is a simple team-member management system with three pages built with Django, Django Rest
+This project is a simple team-member management system with three pages (Team Member List, Edit Team Member, Add Team Member) built with Django, Django Rest
 Framework library, and SQLite. It enables users to view, add, edit, and delete team members. It also includes role-based functionality where admins can delete team members, while regular members do not have that option.
 
 ## ADD PHOTOS HERE ONCE FINALIZED
