@@ -35,32 +35,4 @@
         <button type="submit" class="delete-button">Delete Team Member</button>
     </form>
     {% endif %}
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-    const phoneInput = document.getElementById("phone_number");
-
-    // US phone number regex pattern
-    const phoneRegex = /^\+?1?\s?(\d{3})[-.\s]?(\d{3})[-.\s]?(\d{4})$/;
-
-    // Restrict invalid characters while typing
-    phoneInput.addEventListener("keypress", function (event) {
-        const char = String.fromCharCode(event.which);
-        if (!/[0-9+\-\s]/.test(char)) {
-            alert("Invalid character! Only numbers, spaces, '+', and '-' are allowed.");
-            event.preventDefault();
-        }
-    });
-
-    // Validate phone number format before submitting the form
-    document.getElementById("teamMemberForm").addEventListener("submit", function (event) {
-        const phoneValue = phoneInput.value.trim(); 
-
-        if (!phoneRegex.test(phoneValue)) {
-            alert("Invalid US phone number format!");
-            event.preventDefault(); 
-        }
-    });
-});
-    </script>
 {% endblock %}
