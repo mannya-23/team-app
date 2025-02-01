@@ -1,36 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Members</title>
+{% extends 'base.html' %}
+
+{% block extra_css %}
+
     <style>
-        body {
-            font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
-            margin: 20px;
-            background-color: #adcee9;
-            
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        .add-button {
-            padding: 10px 20px;
-            background-color: #46719e;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            text-align: center;
-            display: inline-block;
-            margin-top: 5px;
-        }
-        h3 {
-            text-align: center; 
-            margin-bottom: 15px;
-            font-weight: normal;
-        }
         .team-list {
             list-style: none;
             padding: 0;
@@ -41,20 +13,11 @@
             padding: 10px;
             border-bottom: 1px solid #ccc;
         }
-        .edit-button {
-            padding: 5px 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            text-align: center;  
-            display: inline-block;
-            line-height: 1.8;
-            height: 25px;
-            vertical-align: middle;
-        }
+        
     </style>
+{% endblock %}
+
+{% block content %}
 </head>
 <body>
     <h1>Team Members</h1>
@@ -81,3 +44,4 @@
     <a href="{% url 'add_team_member' %}" class="add-button"> Add Team Member</a>
 </body>
 </html>
+{% endblock %}

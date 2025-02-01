@@ -2,7 +2,6 @@ from django.db import models
 from django.core.validators import RegexValidator
 
 
-
 # Represents a team member in app
 class TeamMember(models.Model):
 
@@ -16,8 +15,17 @@ class TeamMember(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # Validators should be a list
+    phone_number = models.CharField(
+    max_length=16,
+    blank=True,
+    null=True,
+    validators=[
+      RegexValidator(
+        regex=r'^\+?1?\s?(\d{3})[-.\s]?(\d{3})[-.\s]?(\d{4})$',
+        message='Please enter the phone number in a valid format. (Example: 1234567890)'
+      ),
+    ],
+  )
     role = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -25,5 +33,8 @@ class TeamMember(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
     
+    # Validates the model
+    def save(self, *args, **kwargs):
+        self.full_clean() 
+        super().save(*args, **kwargs)
 
-    

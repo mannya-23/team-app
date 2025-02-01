@@ -1,146 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Team Member</title>
-    <style>
-        /* Body styling */
-        body {
-            font-family: Georgia, 'Times New Roman', Times, serif, 'Times New Roman', Times, serif, sans-serif;
-            background-color: #f0f0f0;  
-            color: #333;  
-            display: flex;
-            justify-content: center; 
-            align-items: center;  
-            height: 100vh;  
-            margin: 0;  
-            flex-direction: column; 
-            background-color: #adcee9;
-        }
+{% extends 'base.html' %}
 
-        /* Header styling */
-        h1 {
-            font-size: 2.0em;
-            color: #071c32;  
-            margin-bottom: 0em;
-            margin-top: 5px;
-            text-align: center; 
-        }
+{% block title %}Edit Team Member{% endblock %}
 
-        h4 {
-            font-size: 1.0em;
-            color: #3c5ca0; 
-            margin-bottom: 1em; 
-            text-align: center;
-        }
-
-        /* Form styling */
-        form {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;   
-        }
-
-        label {
-            font-weight: normal;  
-            margin-top: 15px;
-            display: block;
-        }
-
-        input, select {
-            width: 90%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
-            width: 100%;
-            padding: 5px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1.1em;
-            margin-top: 15px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;  /* Darker blue on hover */
-        }
-
-        .delete-button {
-            font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
-            width: 100%;
-            padding: 5px;
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1.1em;
-            margin-top: 0px;
-            cursor: pointer;
-        }
-
-        .delete-button:hover {
-            background-color: #c82333;  
-        }
-
-        .button-container {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-
-    </style>
-</head>
-<body>
+{% block content %}
     <form method="POST">
         {% csrf_token %}
-
         <h1>Edit Team Member</h1>
-        <h4>Edit email, phone number, and role.</h4>
+        <h3>Edit email, phone number, and role.</h3>
 
-        
-        <label>First Name:</label>
-        <input type="text" name="first_name" value="{{ team_member.first_name }}" required><br>
-        
-        <label>Last Name:</label>
-        <input type="text" name="last_name" value="{{ team_member.last_name }}" required><br>
-        
-        <label>Email:</label>
-        <input type="email" name="email" value="{{ team_member.email }}" required><br>
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" value="{{ team_member.first_name }}" required><br>
 
-        <label>Phone Number:</label>
-        <input type="tel" name="phone_number" value="{{ team_member.phone_number }}" required><br>
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" value="{{ team_member.last_name }}" required><br>
 
-        <label>Role:</label>
-        <select name="role" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="{{ team_member.email }}" required><br>
+
+        <label for="phone_number">Phone Number:</label>
+        <input type="tel" id="phone_number" name="phone_number" value="{{ team_member.phone_number }}" required><br>
+
+        <label for="role">Role:</label>
+        <select id="role" name="role" required>
             <option value="admin" {% if team_member.role == 'admin' %}selected{% endif %}>Admin - Can delete team members</option>
             <option value="regular" {% if team_member.role == 'regular' %}selected{% endif %}>Regular - Cannot delete team members</option>
         </select><br>
-        
-        <button type="submit">Update Team Member</button>
 
+        <button type="submit">Update Team Member</button>
     </form>
 
-    <!-- Displays the delete button only if member role is regular, not for admin -->
-{% if team_member.role == 'regular' %}
-<form method="POST" action="{% url 'delete_team_member' team_member.id %}">
-    {% csrf_token %}
-    <button type="submit" class="delete-button">Delete Team Member</button>
-</form>
-{% endif %}
-</body>
-</html>
-</body>
-</html>
+    {% if team_member.role == 'regular' %}
+    <form method="POST" action="{% url 'delete_team_member' team_member.id %}">
+        {% csrf_token %}
+        <button type="submit" class="delete-button">Delete Team Member</button>
+    </form>
+    {% endif %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const phoneInput = document.getElementById("phone_number");
+
+    // US phone number regex pattern
+    const phoneRegex = /^\+?1?\s?(\d{3})[-.\s]?(\d{3})[-.\s]?(\d{4})$/;
+
+    // Restrict invalid characters while typing
+    phoneInput.addEventListener("keypress", function (event) {
+        const char = String.fromCharCode(event.which);
+        if (!/[0-9+\-\s]/.test(char)) {
+            alert("Invalid character! Only numbers, spaces, '+', and '-' are allowed.");
+            event.preventDefault();
+        }
+    });
+
+    // Validate phone number format before submitting the form
+    document.getElementById("teamMemberForm").addEventListener("submit", function (event) {
+        const phoneValue = phoneInput.value.trim(); 
+
+        if (!phoneRegex.test(phoneValue)) {
+            alert("Invalid US phone number format!");
+            event.preventDefault(); 
+        }
+    });
+});
+    </script>
+{% endblock %}
