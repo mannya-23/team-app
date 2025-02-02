@@ -112,31 +112,46 @@
     // US phone number regex pattern
     const phoneRegex = /^\+?1?\s?(\d{3})[-.\s]?(\d{3})[-.\s]?(\d{4})$/;
 
-    // Phone number input validation
-    phoneInput.addEventListener("keypress", function (event) {
-        const char = String.fromCharCode(event.which);
-        // Prevent input if length is already 15
-        if (phoneInput.value.length >= 15) {
-            event.preventDefault();
-            alert("Phone number cannot exceed 15 characters.");
-            return;
+    phoneInput.addEventListener("input", function (event) {
+        let value = phoneInput.value.trim();
+
+        // Allow only numbers, spaces, dashes, dots, parentheses, and "+"
+        value = value.replace(/[^0-9+\-\.\s()]/g, "");
+
+        // Ensure "+" is only at the start
+        if (value.includes("+") && value.indexOf("+") !== 0) {
+            value = value.replace(/\+/g, ""); 
         }
-        // Allow only numbers, spaces, '+', and '-'
-        if (!/[0-9+\-\s]/.test(char)) {
-            alert("Invalid character! Only numbers, spaces, '+', and '-' are allowed.");
-            event.preventDefault();
+
+        // Enforce max length 
+        if (value.length > 18) {
+            value = value.slice(0, 18);
+        }
+
+        phoneInput.value = value.trim();
+
+        // Enforce U.S. phone number format 
+        const usPhonePattern = /^(\+1\s?)?(\(\d{3}\)|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}$/;
+
+        // Highlight incorrect input, reset if valid
+        if (!usPhonePattern.test(value) && value.length >= 10) {
+            phoneInput.style.border = "2px solid red"; 
+        } else {
+            phoneInput.style.border = ""; 
         }
     });
 
-    // Validate phone number format before submitting the form
-    document.getElementById("teamMemberForm").addEventListener("submit", function (event) {
-        const phoneValue = phoneInput.value.trim(); 
+    // Prevent form submission if phone number is invalid
+    document.querySelector("form").addEventListener("submit", function (event) {
+        const value = phoneInput.value.trim();
+        const usPhonePattern = /^(\+1\s?)?(\(\d{3}\)|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}$/;
 
-        if (!phoneRegex.test(phoneValue)) {
-            alert("Invalid US phone number format!");
-            event.preventDefault(); 
+        if (!usPhonePattern.test(value)) {
+            event.preventDefault();
+            alert("Invalid phone number! Please enter a valid U.S. phone number. Examples include: 1234567890, 123-456-7890, (123)-456-7890, or 123 456 7890.");
         }
     });
+        
 });
     </script>
 

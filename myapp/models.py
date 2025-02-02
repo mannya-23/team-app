@@ -16,15 +16,9 @@ class TeamMember(models.Model):
     last_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     phone_number = models.CharField(
-    max_length=16,
+    max_length=17,
     blank=True,
-    null=True,
-    validators=[
-      RegexValidator(
-        regex=r'^\+?1?\s?(\d{3})[-.\s]?(\d{3})[-.\s]?(\d{4})$',
-        message='Please enter the phone number in a valid format. (Example: 1234567890)'
-      ),
-    ],
+    null=True
   )
     role = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
